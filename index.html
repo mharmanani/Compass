@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Compass is a study-level micro-ultrasound framework for prostate cancer detection that integrates rotational sweeps, biopsy frames, clinical prompts, and roll-angle geometry.">
+  <meta property="og:title" content="Compass: Prostate Cancer Detection Needs Multi-View Context">
+  <meta property="og:description" content="Compass jointly reasons over rotational prostate sweeps and biopsy frames for patient-level prostate cancer detection.">
+  <meta property="og:image" content="assets/logo/compass_logo.png">
+  <meta name="twitter:title" content="Compass: Prostate Cancer Detection Needs Multi-View Context">
+  <meta name="twitter:description" content="Compass jointly reasons over rotational prostate sweeps and biopsy frames for patient-level prostate cancer detection.">
+  <meta name="twitter:image" content="assets/logo/compass_logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="micro-ultrasound, prostate cancer, multi-view context, medical imaging, transformer, Compass">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compass: Prostate Cancer Detection Needs Multi-View Context</title>
+
+  <link rel="icon" href="assets/logo/compass_logo.png">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,600,700|Noto+Sans:400,700|Castoro" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero" id="hero-header">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <img class="compass-logo" src="assets/logo/compass_logo.png" alt="Compass logo">
+          <h1 class="title is-1 publication-title">
+            <span>Compass:</span> <br>
+            Prostate Cancer Detection Needs Multi-View Context
+          </h1>
+
+          <div class="is-size-8 publication-authors">
+            <span class="author-block">Paul F. R. Wilson<sup>*1,6</sup>,</span>
+            <span class="author-block">Mohamed Harmanani<sup>*1,6</sup>,</span>
+            <span class="author-block">Zhuoxin Guo<sup>1,6</sup>,</span>
+            <span class="author-block">Obed K. Dzikunu<sup>2,6</sup>,</span>
+            <span class="author-block">Hannes Cash<sup>3</sup>,</span>
+            <span class="author-block">Adam Kinnaird<sup>4</sup>,</span>
+            <span class="author-block">Brian Wodlinger<sup>5</sup>,</span>
+            <span class="author-block">Purang Abolmaesumi<sup>&dagger;2</sup>,</span>
+            <span class="author-block">Parvin Mousavi<sup>&dagger;1,6</sup></span>
+          </div>
+
+          <div class="publication-authors">
+            <span class="author-block"><sup>1</sup>Queen's University &nbsp;&nbsp; <sup>2</sup>University of British Columbia &nbsp;&nbsp; <sup>3</sup>Otto von Guericke University Magdeburg</span><br>
+            <span class="author-block"><sup>4</sup>University of Alberta &nbsp;&nbsp; <sup>5</sup>Exact Imaging &nbsp;&nbsp; <sup>6</sup>Vector Institute</span>
+            <span class="eql-cntrb"><small><br><sup>*</sup>Co-first authors &nbsp;&nbsp; <sup>&dagger;</sup>Co-senior authors</small></span>
+          </div>
+
+          <div class="venue-logo-wrap">
+            <img class="venue-logo" src="assets/logo/miccai2026-logo-france.png" alt="MICCAI 2026 logo">
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://github.com/mharmanani/Compass" target="_blank" rel="noopener" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github" aria-hidden="true"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#BibTeX" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-book" aria-hidden="true"></i></span>
+                  <span>BibTeX</span>
+                </a>
+              </span>
+            </div>
+          </div>
+
+          <div class="tldr-block">
+            <p>
+              <b>TL;DR - </b> We introduce <b>Compass</b>, a study-level micro-ultrasound
+              framework that jointly reasons over rotational prostate sweeps and biopsy frames.
+              <span class="accent-text">By conditioning mixed-evidence transformer aggregation on probe roll angle, Compass
+              improves patient-level clinically significant prostate cancer detection.</span>
+            </p>
+          </div>
+
+          <div class="has-text-centered">
+            <img class="figure-img hero-figure" src="assets/figures/compass_architecture.png" alt="Compass architecture overview">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Abstract -->
+<section class="section hero teaser is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Artificial intelligence analysis of micro-ultrasound has shown promise for prostate
+            cancer detection. However, most existing AI methods focus on the analysis of single
+            images in isolation. By contrast, expert readers typically assess a full recorded video
+            study, which provides three-dimensional context, to improve prostate cancer detection
+            compared to single-frame analysis.
+          </p>
+          <p>
+            Inspired by this clinical workflow, Compass models a micro-ultrasound study as a stream
+            of 2D images. Compass jointly integrates rotational sweep videos of the prostate with
+            frames acquired at the moment of biopsy, and performs evidence aggregation across the
+            study using a transformer conditioned on the probe's rotational angle. Trained and
+            evaluated on a multi-center clinical trial dataset, Compass highlights the value of
+            <span class="accent-text">multi-view context for micro-ultrasound prostate cancer detection.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End abstract -->
+
+<!-- Method -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body has-text-centered">
+      <h2 class="title is-3">Method</h2>
+      <img class="figure-img" src="assets/figures/compass_architecture.png" alt="Compass dual-branch architecture">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <div class="content has-text-justified figure-caption">
+            <p>
+              Compass integrates two complementary sources of evidence: rotational micro-ultrasound
+              sweeps that provide dense multi-view coverage of the gland, and biopsy core frames
+              paired with clinical metadata. A frozen ProstNFound+ backbone encodes visual evidence,
+              sinusoidal roll embeddings encode probe geometry, and a mixed-token transformer fuses
+              biopsy and sweep tokens for patient-level and biopsy-level prediction.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results -->
+<section class="hero teaser is-light">
+  <div class="container is-max-desktop">
+    <div class="hero-body has-text-centered">
+      <h2 class="title is-3">Results</h2>
+      <div class="table-container">
+        <table class="results-table">
+          <caption>Patient and biopsy-level classification performance. Results are mean ±std over 5-fold cross-validation.</caption>
+          <thead>
+            <tr>
+              <th rowspan="2">Method</th>
+              <th colspan="3">Patient-level</th>
+              <th colspan="2">Biopsy-level</th>
+            </tr>
+            <tr>
+              <th>AUROC</th>
+              <th>B.Acc.</th>
+              <th>Sen@60</th>
+              <th>AUROC</th>
+              <th>B.Acc.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>CLIP ViT-L/14</td><td>67.9 ±7.9</td><td>71.3 ±5.3</td><td>57.9 ±18.0</td><td>62.6 ±11.4</td><td>62.9 ±8.0</td></tr>
+            <tr><td>Cinepro</td><td>72.6 ±6.5</td><td>76.9 ±8.3</td><td>68.2 ±13.1</td><td>68.6 ±7.7</td><td>67.6 ±4.2</td></tr>
+            <tr><td>MedSAM</td><td>74.6 ±5.8</td><td>76.8 ±5.3</td><td>43.1 ±24.4</td><td>61.7 ±4.3</td><td>61.6 ±3.1</td></tr>
+            <tr><td>ProstNFound<sup>+</sup></td><td>78.7 ±15.4</td><td>82.9 ±12.5</td><td>76.7 ±17.8</td><td>68.8 ±10.3</td><td>65.9 ±6.6</td></tr>
+            <tr><td>Cinepro-MIL</td><td>76.3 ±13.9</td><td>76.1 ±11.2</td><td>73.3 ±19.2</td><td>-</td><td>-</td></tr>
+            <tr><td>MedSAM-MIL</td><td>75.7 ±13.7</td><td>76.4 ±10.3</td><td>73.3 ±19.2</td><td>-</td><td>-</td></tr>
+            <tr><td>ProstNFound<sup>+</sup>-MIL</td><td>77.3 ±14.5</td><td>78.1 ±9.4</td><td>82.5 ±15.3</td><td>-</td><td>-</td></tr>
+            <tr><td>ViViT</td><td>61.9 ±13.9</td><td>66.0 ±10.4</td><td>61.7 ±23.1</td><td>-</td><td>-</td></tr>
+            <tr><td>3D-ResNet18</td><td>71.1 ±6.0</td><td>72.3 ±4.6</td><td>73.2 ±11.9</td><td>-</td><td>-</td></tr>
+            <tr><td>MicroSegNet+ViViT</td><td>67.7 ±7.9</td><td>69.0 ±5.2</td><td>66.8 ±11.8</td><td>-</td><td>-</td></tr>
+            <tr><td>ProstNFound<sup>+</sup>+ViViT</td><td>66.4 ±15.3</td><td>68.8 ±9.5</td><td>66.6 ±17.6</td><td>-</td><td>-</td></tr>
+            <tr><td>PRI-MUS (Experts)</td><td>78.5 ±11.1</td><td>78.3 ±6.9</td><td>83.8 ±15.8</td><td><b>73.1 ±8.9</b></td><td><b>71.9 ±7.5</b></td></tr>
+            <tr class="ours"><td>Compass (ours)</td><td>87.2 ±8.7</td><td>85.0 ±8.2</td><td>89.9 ±10.0</td><td>70.5 ±8.6</td><td>68.3 ±6.9</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <div class="content has-text-justified figure-caption">
+            <p>
+              Compass achieves the strongest patient-level performance in this cohort. Its gains
+              over frame-level, MIL, and video baselines suggest that sweep context and roll-aware
+              <span class="accent-text">cross-branch reasoning provide complementary information beyond isolated biopsy frames.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End results -->
+
+<!-- Ablation -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body has-text-centered">
+      <h2 class="title is-3">Ablation</h2>
+      <div class="table-container ablation-table">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Sweeps</th>
+              <th>Angle PE</th>
+              <th>Transformer</th>
+              <th>AUROC</th>
+              <th>Bal.Acc.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>No angle embedding</td><td>yes</td><td>no</td><td>yes</td><td>82.7</td><td>75.1</td></tr>
+            <tr><td>No transformer</td><td>yes</td><td>yes</td><td>no</td><td>74.3</td><td>66.2</td></tr>
+            <tr><td>No sweeps</td><td>no</td><td>yes</td><td>yes</td><td>78.8</td><td>70.6</td></tr>
+            <tr class="ours"><td>Compass (ours)</td><td>yes</td><td>yes</td><td>yes</td><td>87.2</td><td>85.0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <div class="content has-text-justified figure-caption">
+            <p>
+              Removing the roll-angle embedding, transformer fusion, or sweep evidence degrades
+              performance, indicating that Compass benefits from the combination of multi-view
+              evidence, acquisition geometry, and <span class="accent-text">cross-branch reasoning.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Clinical Evaluation -->
+<section class="hero teaser is-light">
+  <div class="container is-max-desktop">
+    <div class="hero-body has-text-centered">
+      <h2 class="title is-3">Clinical Evaluation</h2>
+      <img class="figure-img" src="assets/figures/compass_vs_primus.png" alt="Outcome distributions across PRI-MUS and Compass score bins">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <div class="content has-text-justified figure-caption">
+            <p>
+              Outcome distributions across score bins for PRI-MUS and Compass at the patient and
+              core levels. Compass shows a clear patient-level risk gradient, while PRI-MUS remains
+              stronger for localized core-level characterization, supporting Compass as a
+              complementary study-level triage tool.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Qualitative Analysis -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body has-text-centered">
+      <h2 class="title is-3">Qualitative Analysis</h2>
+      <img class="figure-img" src="assets/figures/heatmaps.png" alt="Compass risk scores and heatmaps across biopsy cores">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <div class="content has-text-justified figure-caption">
+            <p>
+              Compass risk scores across biopsies within patients generally align with PRI-MUS risk
+              scores and pathology findings. Post-hoc heatmaps visualize image-level cancer evidence
+              conditioned on Compass embeddings.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BibTeX -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+    <div class="bibtex-wrap">
+      <button id="copy-bibtex" onclick="copyBibtex()">Copy</button>
+      <pre id="bibtex-block"><code>@inproceedings{wilson2026compass,
+  title   = {Compass: Prostate Cancer Detection Needs Multi-View Context},
+  author  = {Wilson, Paul F. R. and Harmanani, Mohamed and Guo, Zhuoxin and Dzikunu, Obed K. and Cash, Hannes and Kinnaird, Adam and Wodlinger, Brian and Abolmaesumi, Purang and Mousavi, Parvin},
+  booktitle = {International Conference on Medical Image Computing and Computer-Assisted Intervention (MICCAI)},
+  year    = {2026},
+}</code></pre>
+    </div>
+  </div>
+</section>
+<script>
+function copyBibtex() {
+  var text = document.querySelector('#bibtex-block code').innerText;
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = document.getElementById('copy-bibtex');
+    btn.innerText = 'Copied!';
+    setTimeout(function() { btn.innerText = 'Copy'; }, 2000);
+  });
+}
+</script>
+<!-- End BibTeX -->
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
