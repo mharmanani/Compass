@@ -1,0 +1,84 @@
+meta:
+  id: compass
+  description: "Compass: case-level prostate cancer detection from micro-ultrasound sweeps and biopsy cores"
+  family: case_level_clf
+  tags: [compass, sweep, biopsy-mil, roll-pe, large-bert]
+
+runtime:
+  output_dir: logs/case_level_clf/${meta.id}-${runtime.group_id}/fold${runtime.fold}
+  group_id: 0
+  run_id: 0
+  fold: 0
+
+dataset:
+  json_path: samples.json
+  splits_file: resources/splits.json
+  split_id: UA-PU_cv_fold-${runtime.fold}
+  load_sweeps: true
+  load_biopsies: true
+
+transform:
+  bmode_preprocess:
+    image_size: [224, 224]
+  min_gg_for_positive: 2
+  sweep_preprocess:
+    image_size: [224, 224]
+    sweep_key: sweep
+    sync_keys: [sweep_roll_series]
+    select_frame_subsequence:
+      n_frames: 16
+  sweep_max_count: 1
+
+model:
+  name: compass
+  freeze_backbone: true
+
+  num_hidden_layers: 4
+  intermediate_size: 2048
+  hidden_dropout_prob: 0
+  attention_probs_dropout_prob: 0
+  roll_hidden_dim: 128
+  prompt_key_map:
+    biopsy_psa: psa
+    biopsy_age: age
+  roll_embedding_type: sinusoidal
+  detach_token_states_for_classification: true
+
+loss:
+  label_key: label
+  token_label_key: biopsy_cspca
+  minimum_pct_cancer_for_loss: 20
+  token_loss_weight: 0.05
+  token_logits_key: biopsy_logits
+  token_pct_cancer_key: biopsy_pct_cancer
+
+tracker: 
+  biopsy_logits_key: biopsy_logits
+
+train:
+  seed: 0
+  batch_size: 2
+  epochs: 100
+  device: cuda
+  overfit_samples:
+  use_amp: true
+  clip_grad: 1
+  num_workers: 2
+
+optimizer:
+  lr: 3e-5
+  wd: 0.0001
+  warmup_epochs: 5
+  scheduler_type: constant
+
+logger:
+  output_dir: ${runtime.output_dir}
+  console: false
+  overwrite: true
+  use_wandb: true
+  wandb_init_kw:
+    project: compass
+    notes: ${meta.description}
+    name: ${meta.id}-${runtime.group_id}-fold${runtime.fold}
+    group: ${meta.id}-${runtime.group_id}
+    tags: ${meta.tags}
